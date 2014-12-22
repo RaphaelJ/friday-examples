@@ -1,0 +1,84 @@
+name:                   friday-examples
+version:                0.2.0
+synopsis:               Image processing examples which use the friday image
+                        library.
+homepage:               https://github.com/RaphaelJ/friday-examples
+license:                LGPL-3
+license-file:           LICENSE
+author:                 Raphael Javaux <raphaeljavaux[at]gmail.com>
+maintainer:             Raphael Javaux <raphaeljavaux[at]gmail.com>
+
+category:               Graphics
+stability:              Experimental
+build-type:             Simple
+cabal-version:          >= 1.10
+
+executable      delayed
+    main-is:            Delayed.hs
+    ghc-options:        -Wall -O2 -rtsopts
+    hs-source-dirs:     src/
+    default-language:   Haskell2010
+
+    build-depends:      base                    >= 4            && < 5
+                      , friday                  >= 0.2          && < 0.3
+                      , friday-devil            >= 0.1          && < 0.2
+
+executable      canny
+    main-is:            Canny.hs
+    ghc-options:        -Wall -O2 -rtsopts
+    hs-source-dirs:     src/
+    default-language:   Haskell2010
+
+    build-depends:      base                    >= 4            && < 5
+                      , friday                  >= 0.2          && < 0.3
+                      , friday-devil            >= 0.1          && < 0.2
+
+executable      gaussian_blur
+    main-is:            GaussianBlur.hs
+    ghc-options:        -Wall -O2 -rtsopts
+    hs-source-dirs:     src/
+    default-language:   Haskell2010
+
+    build-depends:      base                    >= 4            && < 5
+                      , friday                  >= 0.2          && < 0.3
+                      , friday-devil            >= 0.1          && < 0.2
+
+executable      histogram
+    main-is:            Histogram.hs
+    ghc-options:        -Wall -O2 -rtsopts
+    hs-source-dirs:     src/
+    default-language:   Haskell2010
+
+    build-depends:      base                    >= 4            && < 5
+                      , friday                  >= 0.2          && < 0.3
+                      , friday-devil            >= 0.1          && < 0.2
+
+executable      otsu
+    main-is:            Otsu.hs
+    ghc-options:        -Wall -O2 -rtsopts
+    hs-source-dirs:     src/
+    default-language:   Haskell2010
+
+    build-depends:      base                    >= 4            && < 5
+                      , friday                  >= 0.2          && < 0.3
+                      , friday-devil            >= 0.1          && < 0.2
+
+executable      resize_image
+    main-is:            ResizeImage.hs
+    ghc-options:        -Wall -O2 -rtsopts
+    hs-source-dirs:     src/
+    default-language:   Haskell2010
+
+    build-depends:      base                    >= 4            && < 5
+                      , friday                  >= 0.2          && < 0.3
+                      , friday-devil            >= 0.1          && < 0.2
+
+executable      scw
+    main-is:            SCW.hs
+    ghc-options:        -Wall -O2 -rtsopts
+    hs-source-dirs:     src/
+    default-language:   Haskell2010
+
+    build-depends:      base                    >= 4            && < 5
+                      , friday                  >= 0.2          && < 0.3
+                      , friday-devil            >= 0.1          && < 0.2
