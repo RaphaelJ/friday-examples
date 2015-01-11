@@ -11,6 +11,6 @@ Somes image processing examples which use the
 
 * [Detect edges using Canny's edge detector](src/Canny.hs) ;
 
-* [Thresholds an image using the Otsu's method](src/Otsu.hs) ;
+* [Threshold an image using the Otsu's method](src/Otsu.hs) ;
 
-* [Thresholds an image using the SCW method.](src/SCW.hs).
+* [Threshold an image using the SCW method](src/SCW.hs).

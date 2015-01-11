@@ -1,8 +1,9 @@
+{-# LANGUAGE ScopedTypeVariables #-}
 import Prelude hiding (filter)
 import System.Environment (getArgs)
 
 import Vision.Image
-import Vision.Image.Storage.DevIL (load, save)
+import Vision.Image.Storage.DevIL (Autodetect (..), load, save)
 
 -- Applies a Gaussian blur to an image.
 --
@@ -12,24 +13,23 @@ main = do
     [input, output] <- getArgs
 
     -- Loads the image. Automatically infers the format.
-    io <- load Nothing input
+    io <- load Autodetect input
 
     case io of
-        Left _err -> putStrLn "Error while reading the image."
-        Right img -> do
-            let -- Convert the StorageImage (which can be Grey, RGB or RGBA) to
-                -- a Grey image (filters are currently only supported on single
-                -- channel images).
-                grey = convert img              :: Grey
+        Left err             -> do
+            putStrLn "Unable to load the image:"
+            print err
+        Right (grey :: Grey) -> do
+            let -- Applies a Gaussian filter with a 5x5 Double kernel to remove
+                -- small noises.
+                blurred :: Grey
+                blurred = gaussianBlur 2 (Nothing :: Maybe Double) grey
 
-                -- Creates a Gaussian filter with a 21x21 kernel (kernel radius
-                -- of 10px).
-                filter = gaussianBlur 10 Nothing :: Blur GreyPixel Float
-                                                         GreyPixel
-
-                -- Applies the filter to the grey-scale image.
-                blurred = apply filter grey     :: Grey
-
-            -- Saves the blurred image. Ignores any runtime error.
-            _ <- save output blurred
-            return ()
+            -- Saves the blurred image. Automatically infers the output format.
+            mErr <- save Autodetect output blurred
+            case mErr of
+                Nothing  ->
+                    putStrLn "Success."
+                Just err -> do
+                    putStrLn "Unable to save the image:"
+                    print err

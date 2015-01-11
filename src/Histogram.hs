@@ -1,10 +1,11 @@
+{-# LANGUAGE ScopedTypeVariables #-}
 import Data.Int
 import System.Environment (getArgs)
 import Text.Printf
 
 import Vision.Histogram
 import Vision.Image
-import Vision.Image.Storage.DevIL (load, save)
+import Vision.Image.Storage.DevIL (Autodetect (..), load)
 import Vision.Primitive
 
 -- Compares two images by their HSV histograms.
@@ -15,15 +16,12 @@ main = do
     [input1, input2] <- getArgs
 
     -- Loads the images. Automatically infers the format.
-    io1 <- load Nothing input1
-    io2 <- load Nothing input2
+    io1 <- load Autodetect input1
+    io2 <- load Autodetect input2
 
     case (io1, io2) of
-        (Right img1, Right img2) -> do
-            let rgb1 = convert img1 :: RGB
-                rgb2 = convert img2 :: RGB
-
-                -- Converts both images to the HSV color space as it gives
+        (Right (rgb1 :: RGB), Right (rgb2 :: RGB)) -> do
+            let -- Converts both images to the HSV color space as it gives
                 -- better results when comparing colors.
                 hsv1 = convert rgb1 :: HSV
                 hsv2 = convert rgb2 :: HSV

@@ -1,7 +1,8 @@
+{-# LANGUAGE ScopedTypeVariables #-}
 import System.Environment (getArgs)
 
 import Vision.Image
-import Vision.Image.Storage.DevIL (load, save)
+import Vision.Image.Storage.DevIL (Autodetect (..), load, save)
 import Vision.Primitive (Z (..), (:.) (..), Rect (..), ix2)
 
 -- Reads an image from a file, applies a composition of transformations to
@@ -13,16 +14,14 @@ main = do
     [input, output] <- getArgs
 
     -- Loads the image. Automatically infers the format.
-    io <- load Nothing input
+    io <- load Autodetect input
 
     case io of
-        Left _err -> putStrLn "Error while reading the image."
-        Right img -> do
-            let -- Convert the StorageImage (which can be Grey, RGB or RGBA) to
-                -- an RGB image.
-                rgb = convert img :: RGB
-
-                -- Gets the size of the image.
+        Left err           -> do
+            putStrLn "Unable to load the image:"
+            print err
+        Right (rgb :: RGB) -> do
+            let -- Gets the size of the image.
                 Z :. h :. w = shape rgb
 
                 -- Creates a Rect object which will be used to define how we
@@ -41,5 +40,11 @@ main = do
                 -- transformations into a single loop.
                 resized = manifest $ resize Bilinear (ix2 250 250) cropped
 
-            _ <- save output resized
-            return ()
+            -- Saves the resized image. Automatically infers the output format.
+            mErr <- save Autodetect output resized
+            case mErr of
+                Nothing  ->
+                    putStrLn "Success."
+                Just err -> do
+                    putStrLn "Unable to save the image:"
+                    print err
