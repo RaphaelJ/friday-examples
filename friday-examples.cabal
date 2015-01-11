@@ -1,5 +1,8 @@
 name:                   friday-examples
-version:                0.1.0
+--                      +-+------- breaking API changes
+--                      | | +----- non-breaking API additions
+--                      | | | +--- code changes with no API change
+version:                0.1.0.1
 synopsis:               Image processing examples which use the friday image
                         library.
 homepage:               https://github.com/RaphaelJ/friday-examples
@@ -12,6 +15,10 @@ category:               Graphics
 stability:              Experimental
 build-type:             Simple
 cabal-version:          >= 1.10
+
+source-repository       head
+    type:               git
+    location:           https://github.com/RaphaelJ/friday-examples
 
 executable      canny
     main-is:            Canny.hs

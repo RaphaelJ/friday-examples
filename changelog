@@ -1,4 +1,7 @@
 -*-change-log-*-
 
-v0.1 December 2014
+v0.1.0.1 January 2014
+ * Setup.hs script.
+
+v0.1 January 2014
  * Initial release
